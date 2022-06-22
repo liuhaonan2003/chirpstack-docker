@@ -2,16 +2,19 @@
 # configuration example and documentation.
 
 [postgresql]
-dsn="postgres://chirpstack_as:chirpstack_as@postgresql/chirpstack_as?sslmode=disable"
+# dsn="postgres://chirpstack_as:chirpstack_as@postgresql/chirpstack_as?sslmode=disable"
+dsn="postgres://chirpstack_as:chirpstack_as@192.168.1.233:5433/chirpstack_as?sslmode=disable"
 
 [redis]
-url="redis://redis:6379"
+# url="redis://redis:6379"
+ url="redis://192.168.1.233:6379"
 
 [application_server.integration.mqtt]
 server="tcp://mosquitto:1883"
 
 [application_server.api]
-public_host="chirpstack-application-server:8001"
+# public_host="chirpstack-application-server:8001"
+public_host="192.168.1.233:8001"
 
 [application_server.external_api]
 bind="0.0.0.0:8080"
