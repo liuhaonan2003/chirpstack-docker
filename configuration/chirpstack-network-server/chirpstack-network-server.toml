@@ -48,4 +48,5 @@ name="CN470"
 server="tcp://mosquitto:1883"
 
 [join_server.default]
-server="http://chirpstack-application-server:8003"
+#server="http://chirpstack-application-server:8003"
+server="http://localhost:8003"
