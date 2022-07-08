@@ -2,15 +2,14 @@ version: "3"
 
 services:
   chirpstack-network-server:
-    image: chirpstack/chirpstack-network-server:3
+    image: registry.cn-hangzhou.aliyuncs.com/lora_services/chirpstack-network-server:v0.3
     volumes:
       - ./configuration/chirpstack-network-server:/etc/chirpstack-network-server
     depends_on:
       - postgresql
       - mosquitto
-
   chirpstack-application-server:
-    image: chirpstack/chirpstack-application-server:3
+    image: registry.cn-hangzhou.aliyuncs.com/lora_services/chirpstack-application-server:v0.6
     ports:
       - 8080:8080
     volumes:
@@ -19,24 +18,27 @@ services:
       - chirpstack-network-server
 
   chirpstack-gateway-bridge:
-    image: chirpstack/chirpstack-gateway-bridge:3
+    image: registry.cn-hangzhou.aliyuncs.com/lora_services/chirpstack-gateway-bridge:v0.2
     ports:
       - 1700:1700/udp
     volumes:
       - ./configuration/chirpstack-gateway-bridge:/etc/chirpstack-gateway-bridge
-    depends_on: 
+    depends_on:
       - mosquitto
-
   postgresql:
     image: postgres:9.6-alpine
+    ports:
+      - 5432:5432
     environment:
-      - POSTGRES_PASSWORD=root
+      - POSTGRES_PASSWORD=admin001
     volumes:
       - ./configuration/postgresql/initdb:/docker-entrypoint-initdb.d
       - postgresqldata:/var/lib/postgresql/data
 
   redis:
     image: redis:5-alpine
+    ports:
+      - 6379:6379
     volumes:
       - redisdata:/data
 
@@ -44,7 +46,7 @@ services:
     image: eclipse-mosquitto:2
     ports:
       - 1883:1883
-    volumes: 
+    volumes:
       - ./configuration/eclipse-mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
 
 volumes:
