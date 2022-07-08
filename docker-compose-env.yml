@@ -4,23 +4,23 @@ services:
   chirpstack-network-server:
     image: registry.cn-hangzhou.aliyuncs.com/lora_services/chirpstack-network-server:v0.3
     environment:
-      - POSTGRESQL__DSN=postgres://chirpstack_ns:chirpstack_ns@192.168.1.233:5433/chirpstack_ns?sslmode=disable
-      - REDIS__URL=redis://192.168.1.233:6379
+      - POSTGRESQL__DSN=postgres://chirpstack_ns:chirpstack_ns@localhost:5432/chirpstack_ns?sslmode=disable
+      - REDIS__URL=redis://localhost:6379
       - NETWORK_SERVER__BAND__NAME=EU868
       - NETWORK_SERVER__GATEWAY__BACKEND__MQTT__SERVER=tcp://mosquitto:1883
-      - JOIN_SERVER__DEFAULT__SERVER=http://192.168.1.233:8003
+      - JOIN_SERVER__DEFAULT__SERVER=http://localhost:8003
     depends_on:
       - postgresql
       - mosquitto
   chirpstack-application-server:
-    image: registry.cn-hangzhou.aliyuncs.com/lora_services/chirpstack-application-server:v0.5
+    image: registry.cn-hangzhou.aliyuncs.com/lora_services/chirpstack-application-server:v0.6
     ports:
       - 8080:8080
     environment:
-      - POSTGRESQL__DSN=postgres://chirpstack_as:chirpstack_as@192.168.1.233:5433/chirpstack_as?sslmode=disable
-      - REDIS__URL=redis://192.168.1.233:6379
+      - POSTGRESQL__DSN=postgres://chirpstack_as:chirpstack_as@localhost:5433/chirpstack_as?sslmode=disable
+      - REDIS__URL=redis://localhost:6379
       - APPLICATION_SERVER__INTEGRATION__MQTT__SERVER=tcp://mosquitto:1883
-      - APPLICATION_SERVER__API__PUBLIC_HOST=192.168.1.233:8001
+      - APPLICATION_SERVER__API__PUBLIC_HOST=localhost:8001
       - APPLICATION_SERVER__EXTERNAL_API__JWT_SECRET=verysecret
     depends_on:
       - chirpstack-network-server
@@ -35,14 +35,18 @@ services:
       - mosquitto
   postgresql:
     image: postgres:9.6-alpine
+    ports:
+      - 5432:5432
     environment:
-      - POSTGRES_PASSWORD=root 
+      - POSTGRES_PASSWORD=admin001
     volumes:
       - ./configuration/postgresql/initdb:/docker-entrypoint-initdb.d
       - postgresqldata:/var/lib/postgresql/data
 
   redis:
     image: redis:5-alpine
+    ports:
+      - 6379:6379
     volumes:
       - redisdata:/data
 
