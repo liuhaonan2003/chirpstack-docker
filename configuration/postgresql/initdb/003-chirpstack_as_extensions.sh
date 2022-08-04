@@ -5,3 +5,8 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname="chirpstack_as" <<-
     create extension pg_trgm;
     create extension hstore;
 EOSQL
+
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname="chirpstack_ns" <<-EOSQL
+    create extension pg_trgm;
+    create extension hstore;
+EOSQL

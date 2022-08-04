@@ -2,14 +2,14 @@ version: "3"
 
 services:
   chirpstack-network-server:
-    image: registry.cn-hangzhou.aliyuncs.com/lora_services/chirpstack-network-server:v0.3
+    image: registry.cn-hangzhou.aliyuncs.com/lora_services/chirpstack-network-server:v0.4
     volumes:
       - ./configuration/chirpstack-network-server:/etc/chirpstack-network-server
     depends_on:
       - postgresql
       - mosquitto
   chirpstack-application-server:
-    image: registry.cn-hangzhou.aliyuncs.com/lora_services/chirpstack-application-server:v0.6
+    image: registry.cn-hangzhou.aliyuncs.com/lora_services/chirpstack-application-server:v0.8
     ports:
       - 8080:8080
     volumes:
@@ -18,7 +18,7 @@ services:
       - chirpstack-network-server
 
   chirpstack-gateway-bridge:
-    image: registry.cn-hangzhou.aliyuncs.com/lora_services/chirpstack-gateway-bridge:v0.2
+    image: registry.cn-hangzhou.aliyuncs.com/lora_services/chirpstack-gateway-bridge:v0.3
     ports:
       - 1700:1700/udp
     volumes:
@@ -34,6 +34,7 @@ services:
     volumes:
       - ./configuration/postgresql/initdb:/docker-entrypoint-initdb.d
       - postgresqldata:/var/lib/postgresql/data
+      - G:\Pro\data:/home
 
   redis:
     image: redis:5-alpine
