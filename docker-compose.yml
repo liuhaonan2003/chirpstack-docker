@@ -2,7 +2,7 @@ version: "3"
 
 services:
   chirpstack-network-server:
-    image: registry.cn-hangzhou.aliyuncs.com/lora_services/chirpstack-network-server:v0.4
+    image: registry.cn-hangzhou.aliyuncs.com/lora_services/chirpstack-network-server:v0.5
     volumes:
       - ./configuration/chirpstack-network-server:/etc/chirpstack-network-server
     depends_on:
