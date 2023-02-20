@@ -54,7 +54,7 @@ dsn="postgres://chirpstack_ns:chirpstack_ns@192.168.1.233:5432/chirpstack_ns?ssl
 # or let ChirpStack Application Server migrate to the latest state automatically, by using
 # this setting. Make sure that you always make a backup when upgrading ChirpStack
 # Application Server and / or applying migrations.
-automigrate=true
+automigrate=false
 
 # Max open connections.
 #

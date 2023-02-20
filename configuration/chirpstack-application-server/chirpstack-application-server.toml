@@ -631,3 +631,10 @@ healthcheck_endpoint=false
 # to a Redis Stream. This feature is used by the web-interface.
 per_device_event_log_max_history=10
 
+[application_server.integration.postgresql]
+dsn="postgres://chirpstack_as_events:chirpstack_as_events@192.168.1.233:5432/chirpstack_as_events?sslmode=disable"
+max_idle_connections=2
+
+[application_server.integration.statistics]
+dsn="postgres://chirpstack_as:chirpstack_as@192.168.1.233:5432/test?sslmode=disable"
+max_idle_connections=2
