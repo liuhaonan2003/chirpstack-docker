@@ -419,7 +419,7 @@ algorithm="SHA-512"
 # PostgreSQL database integration.
 [application_server.integration.postgresql]
 # PostgreSQL dsn (e.g.: postgres://user:password@hostname/database?sslmode=disable).
-dsn=""
+dsn="postgres://chirpstack_as_events:chirpstack_as_events@192.168.1.233:5432/chirpstack_as_events?sslmode=disable"
 
 # This sets the max. number of open connections that are allowed in the
 # PostgreSQL connection pool (0 = unlimited).
@@ -429,6 +429,10 @@ max_open_connections=0
 #
 # This sets the max. number of idle connections in the PostgreSQL connection
 # pool (0 = no idle connections are retained).
+max_idle_connections=2
+
+[application_server.integration.statistics]
+dsn="postgres://chirpstack_as:chirpstack_as@192.168.1.233:5432/test?sslmode=disable"
 max_idle_connections=2
 
 
@@ -630,11 +634,3 @@ healthcheck_endpoint=false
 # When set to > 0, ChirpStack Application Server will log events per device
 # to a Redis Stream. This feature is used by the web-interface.
 per_device_event_log_max_history=10
-
-[application_server.integration.postgresql]
-dsn="postgres://chirpstack_as_events:chirpstack_as_events@192.168.1.233:5432/chirpstack_as_events?sslmode=disable"
-max_idle_connections=2
-
-[application_server.integration.statistics]
-dsn="postgres://chirpstack_as:chirpstack_as@192.168.1.233:5432/test?sslmode=disable"
-max_idle_connections=2
